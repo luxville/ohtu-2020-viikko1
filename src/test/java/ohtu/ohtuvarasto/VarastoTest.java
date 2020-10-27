@@ -12,12 +12,16 @@ import static org.junit.Assert.*;
 
 public class VarastoTest {
 
-    Varasto varasto;
+    Varasto varasto, varasto2, varasto3, varasto4, varasto5;
     double vertailuTarkkuus = 0.0001;
 
     @Before
     public void setUp() {
         varasto = new Varasto(10);
+        varasto2 = new Varasto(-10);
+        varasto3 = new Varasto(10, 5);
+        varasto4 = new Varasto(-10, -10);
+        varasto5 = new Varasto(10, 15);
     }
 
     @Test
@@ -26,8 +30,16 @@ public class VarastoTest {
     }
 
     @Test
+    public void luoEpakelpoVarasto() {
+        assertEquals(0, varasto2.getSaldo(), vertailuTarkkuus);
+        assertEquals(0, varasto4.getSaldo(), vertailuTarkkuus);
+        assertEquals(0, varasto4.getTilavuus(), vertailuTarkkuus);
+    }
+    
+    @Test
     public void uudellaVarastollaOikeaTilavuus() {
         assertEquals(10, varasto.getTilavuus(), vertailuTarkkuus);
+        assertEquals(10, varasto5.getTilavuus(), vertailuTarkkuus);
     }
 
     @Test
@@ -41,9 +53,13 @@ public class VarastoTest {
     @Test
     public void lisaysLisaaPienentaaVapaataTilaa() {
         varasto.lisaaVarastoon(8);
+        varasto2.lisaaVarastoon(20);
+        varasto3.lisaaVarastoon(-8);
 
         // vapaata tilaa pitäisi vielä olla tilavuus-lisättävä määrä eli 2
         assertEquals(2, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+        assertEquals(0, varasto2.paljonkoMahtuu(), vertailuTarkkuus);
+        assertEquals(5, varasto3.paljonkoMahtuu(), vertailuTarkkuus);
     }
 
     @Test
@@ -60,9 +76,17 @@ public class VarastoTest {
         varasto.lisaaVarastoon(8);
 
         varasto.otaVarastosta(2);
+        varasto3.otaVarastosta(-2);
+        varasto5.otaVarastosta(20);
 
         // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+        assertEquals(5, varasto3.paljonkoMahtuu(), vertailuTarkkuus);
+        assertEquals(10, varasto5.paljonkoMahtuu(), vertailuTarkkuus);
     }
 
+    @Test
+    public void tulostusOikein() {
+        assertEquals("saldo = 5.0, vielä tilaa 5.0", varasto3.toString());
+    }
 }
