@@ -81,7 +81,9 @@ public class VarastoTest {
 
         // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+        // varastossa 3 tilaa on alunperin 5 eikä negatiivinen vähennys muuta sitä
         assertEquals(5, varasto3.paljonkoMahtuu(), vertailuTarkkuus);
+        // varastossa 5 ylisuuri poisto ei mahdollista saldon menemistä miinukselle
         assertEquals(10, varasto5.paljonkoMahtuu(), vertailuTarkkuus);
     }
 
