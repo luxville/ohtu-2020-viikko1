@@ -10,7 +10,8 @@ public class Varasto {
     public Varasto(double tilavuus) {  // tilavuus on annettava
         if (tilavuus > 0.0) {
             this.tilavuus = tilavuus;
-        } else { // virheellinen, nollataan
+        } else // virheellinen, nollataan
+        {
             this.tilavuus = 0.0;  // => käyttökelvoton varasto
         }
         saldo = 0;     // oletus: varasto on tyhjä
@@ -22,12 +23,14 @@ public class Varasto {
         } else { // virheellinen, nollataan
             this.tilavuus = 0.0;  // => käyttökelvoton varasto
         }
-        if (alkuSaldo < 0.0) {
-            this.saldo = 0.0;
-        //} else if (alkuSaldo <= tilavuus) { // mahtuu
-        //    this.saldo = alkuSaldo;
+        if (alkuSaldo <= tilavuus) { // mahtuu
+            if (alkuSaldo < 0.0) {
+                this.saldo = 0.0;
+            } else {
+                this.saldo = alkuSaldo;
+            }
         } else {
-            this.saldo = Math.min(alkuSaldo, tilavuus);  // täyteen ja ylimäärä hukkaan!
+            this.saldo = tilavuus;  // täyteen ja ylimäärä hukkaan!
         }
     }
 
@@ -37,7 +40,7 @@ public class Varasto {
     }
 
     public double getTilavuus() {        
-        return tilavuus;
+    return tilavuus;
     }
 
     public double paljonkoMahtuu() {  // huom: ominaisuus voidaan myös laskea
